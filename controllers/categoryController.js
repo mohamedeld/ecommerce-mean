@@ -33,3 +33,38 @@ exports.getCategory = catchAsync(async (request, response, next) => {
     category,
   });
 });
+exports.updateCategory = catchAsync(async (request, response, next) => {
+  const category = await Category.findByIdAndUpdate(
+    request.params.id,
+    request.body,
+    { new: true }
+  );
+  if (!category) {
+    return next(
+      new AppError(
+        `can not found category with this id ${request.params.id}`,
+        404
+      )
+    );
+  }
+  response.status(200).json({
+    status: "success",
+    message: "updated successfully",
+    category,
+  });
+});
+exports.deleteCategory = catchAsync(async (request, response, next) => {
+  const category = await Category.findByIdAndDelete(request.params.id);
+  if (!category) {
+    return next(
+      new AppError(
+        `can not found category with this id ${request.params.id}`,
+        404
+      )
+    );
+  }
+  response.status(200).json({
+    status: "success",
+    message: "deleted successfully",
+  });
+});
