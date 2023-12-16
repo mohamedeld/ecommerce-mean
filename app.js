@@ -8,7 +8,7 @@ const connectToDB = require("./utils/database");
 const productRoute = require("./routes/productRoute");
 const categoryRoute = require("./routes/categoryRoute");
 const brandRoute = require("./routes/brandRoute");
-
+const userRoute = require("./routes/userRoute");
 if (process.env.NODE_ENV !== "production") {
   app.use(morgan("dev"));
 }
@@ -17,6 +17,7 @@ app.use(express.json());
 app.use("/api/v1/products", productRoute);
 app.use("/api/v1/categories", categoryRoute);
 app.use("/api/v1/brands", brandRoute);
+app.use("/api/v1/users", userRoute);
 
 // add cros
 app.use((request, response, next) => {
